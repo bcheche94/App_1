@@ -1,0 +1,92 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="mb-5">Purchase page for <%= item_of_interest.title %></h2>
+
+<div class="card mb-5" style="width: 18rem">
+    <img crossorigin="anonymous" src="<%= item_of_interest.images[0].url %>" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title"><%= item_of_interest.title %></h5>
+      <p class="card-text"><%= item_of_interest.description %></p>
+      <h5 style="display: inline">$</h5>
+      <h5 style="display: inline" id="h5_price" class="card-title mb-5"> <%= item_of_interest.price %> </h5>
+    </div>
+</div>
+
+<form action="/products/<%= item_of_interest._id %>/purchase" method="POST" class="validated-form" novalidate>
+
+<p style="max-width: 450px; margin-bottom: 50px;">This ecommerce site is fictional, a demo project. If we assume it operates
+in your (the visitor's) area, this product purchase page below would look as follows
+</p>
+
+<div style="max-width: 500px; margin-bottom: 75px;" class="alert alert-danger" role="alert">
+    This is not a real purchase page. The required info fields are there only for
+    project realism, the entered data is irrelevant - it is not used, in fact it is discarded after a successful "purchase".
+    Certain data structure / validation is enforced however this is, again, only for project realism. Please enter fake details
+    in order to proceed through the page
+</div>
+
+<div class="mb-3" style="max-width: 500px;">
+    <label class="form-label" for="address">Your Address</label>
+    <input class="form-control" type="text" id="address" name="address" required>
+</div>
+
+<div class="mb-3" style="max-width: 500px;">
+    <label class="form-label" for="your_cell_number">Your Cell Phone</label>
+    <input class="form-control" minlength="9" maxlength="9" type="text" id="your_cell_number" name="your_cell_number" required>
+</div>
+
+<div class="mb-3" style="max-width: 500px;">
+    <label class="form-label" for="your_email">Your Email</label>
+    <input class="form-control" type="email" id="your_email" name="your_email" required>
+</div>
+
+<div class="mb-3" style="max-width: 500px;">
+    <label class="form-label" for="amount_of_product">Product Quantity</label>
+    <input onchange="myFunction2(this.value)" class="form-control" min="1" max="50" type="number" id="amount_of_product" name="amount_of_product" required>
+</div>
+
+<h2 id="your_total_price"></h2>
+
+<div style="margin-top: 100px; margin-bottom: 100px;"></div>
+
+<div class="mb-3" style="max-width: 500px;">
+    <label class="form-label" for="creditcard">Credit Card</label>
+    <input class="form-control" minlength="16" maxlength="16" type="text" id="creditcard" name="creditcard" required>
+</div>
+
+<div class="mb-3" style="max-width: 200px;">
+    <label class="form-label" for="expiration">Expiration</label>
+    <input class="form-control" minlength="4" maxlength="4" type="text" id="expiration" name="expiration" required>
+</div>
+
+<div class="mb-3" style="max-width: 200px;">
+    <label class="form-label" for="cvc">CVC</label>
+    <input class="form-control" minlength="3" maxlength="3" type="text" id="cvc" name="cvc" required>
+</div>
+
+<button class="btn btn-success" > PURCHASE </button>
+
+<div style="margin-top: 100px; margin-bottom: 100px"></div>
+
+</form>
+
+
+
+<script>
+
+    let display_price = document.getElementById('your_total_price')
+    let given_price = document.getElementById('h5_price')
+    
+    function myFunction2(val) {
+        let myvar = val
+        if (myvar < 0) {
+            display_price.innerText = 'You cannot have a negative number for product quantity!'
+        } else if (myvar > 50) {
+            display_price.innerText = 'More than 50 is not allowed!'
+        } else {
+            display_price.innerText = 'Your total price is $' + (val * given_price.innerText).toString()
+        }
+        
+    }
+
+</script>

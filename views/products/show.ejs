@@ -1,0 +1,145 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/static/stylesheets/stars.css">
+
+<h1> <%= product.title %> </h1>
+
+<% if(product.images.length == 1) { %>
+
+<% for (let img of product.images) { %>
+
+<img crossorigin="anonymous" style="width: fit-content; height: fit-content; max-width: 600px; max-height: 600px;" src="<%= img.url %>" class="rounded-3 mt-3 border-2 border border-dark">
+
+<% } %>
+
+<% } else { %>
+
+<% for (let img of product.images) { %>
+
+<img crossorigin="anonymous" class="rounded-3 mt-3 border-2 border border-dark" style="margin-right: 50px; margin-bottom: 50px; max-width: 400px;" src="<%= img.url %>">
+
+<% } %>
+
+<% } %>
+
+<div style="display: flex; margin-top: 50px; margin-bottom: 50px">
+
+    <ul style="max-width: 300px" class="list-group">
+        <li class="list-group-item">Retailer</li>
+        <li class="list-group-item">Product Price</li>
+        <li class="list-group-item">Product Producer</li>
+        <li class="list-group-item">Product Description</li>
+    </ul>
+    
+    <div style="margin-left: 50px;">
+    <ul style="max-width: 300px" class="list-group">
+        <li class="list-group-item"><%= product.author.username %></li>
+        <li class="list-group-item">$<%= product.price %></li>
+        <li class="list-group-item"><%= product.producer %></li>
+        <li class="list-group-item"><%= product.description %></li>
+    </ul>
+    </div>
+    
+</div>
+
+<div style="margin-bottom: 100px; margin-top: 75px; display: flex; flex-direction: column; max-width: fit-content">
+
+    <a style="margin-bottom: 25px;" class="btn btn-outline-success" href="/products/<%= product._id %>/purchase">Purchase This Product</a>
+
+    <% if (product.category == 'food & drink') { %>
+    <a class="btn btn-outline-primary" href="/food_and_drink">Back To Product Category</a>
+    <% } else if (product.category == 'fruit & veggie') { %>
+    <a class="btn btn-outline-primary" href="/fruit_and_veggie">Back To Product Category</a>
+    <% } else if (product.category == 'digital entertainment') { %>
+    <a class="btn btn-outline-primary" href="/digital_entertainment">Back To Product Category</a>
+    <% } else { %>
+    <a class="btn btn-outline-primary" href="/<%= product.category %>">Back To Product Category</a>
+    <% } %>
+
+    <% if (currentUser && product.author.equals(currentUser._id)) { %>
+
+    <a style="margin-top: 25px;" class="btn btn-outline-warning" href="/products/<%= product._id %>/edit">Edit This Product</a>
+        
+    <% } %>
+
+    <% if (currentUser && product.author.equals(currentUser._id) || currentUser && currentUser._id == process.env.ADMIN_ID) { %>
+
+        <form style="margin-top: 25px;" action="/products/<%= product._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-outline-danger">Delete This Product</button>
+        </form>
+        
+    <% } %>
+
+</div>
+
+<p>
+
+    <% if (currentUser) { %>
+
+    <h2 style="margin-bottom: 40px">Leave a review!</h2>
+
+    <form class="validated-form" novalidate action="/products/<%= product._id %>/reviews" method="POST" style="margin-bottom: 150px">
+
+        <div class="mb-3">
+
+            <fieldset class="starability-basic">
+                
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+                
+            </fieldset>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label" for="body">Review</label>
+
+            <textarea required class="form-control" name="review[body]" id="body" cols="30" rows="3"></textarea>
+
+        </div>
+
+        <button class="btn btn-success">Submit</button>
+
+    </form>
+
+    <% } %>
+
+</p>
+
+<div style="margin-top: 150px;
+            margin-bottom: 250px;
+            border: 2px solid black;
+            width: 700px;
+            height: auto;
+            padding: 50px">
+
+    <h2 style="margin-bottom: 50px">REVIEWS</h2>
+
+    <% for(let item of product.reviews) { %>
+
+    <p style="margin-bottom: 10px"> <%= item.author.username %> </p>
+
+    <p class="starability-result" data-rating="<%= item.rating %>"></p>
+
+    <p style="margin-bottom: 30px"> <%= item.body %> </p>
+
+        <% if (currentUser && item.author.equals(currentUser._id)) { %>
+
+        <form action="/products/<%= product._id %>/reviews/<%= item._id %>?_method=DELETE" method="POST">
+            <button style="margin-bottom: 30px" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+
+        <% } %>
+
+    <% } %>
+
+</div>

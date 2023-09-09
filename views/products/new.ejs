@@ -1,0 +1,64 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row" style="margin-bottom: 100px">
+    <h1 class="text-center">New Product</h1>
+    <h4 class="text-center mb-5 mt-2">As a vendor you may post a new product to Zorgon Ecommerce, 
+    fill in the details below
+    </h4>
+    <div class="col-6 offset-3">
+        <form action="/products" method="POST" enctype="multipart/form-data" novalidate class="validated-form">
+
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="product[title]" required>
+            </div>
+
+            <label style="margin: 10px;" for="image">Image Upload</label>
+            <input style="margin: 20px;" type="file" name="image" id="image" multiple>
+
+            <div class="mb-3">
+                <label class="form-label" for="price">Price</label>
+                <input class="form-control" type="text" id="price" name="product[price]" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="product[description]" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="producer">Producer</label>
+                <input class="form-control" type="text" id="producer" name="product[producer]" required>
+            </div>
+
+            <div style="margin: 40px;">
+            <label style="margin-right: 10px; margin-bottom: 10px;" for="category">Product Category</label>
+            <select class="form-control" required name="product[category]" id="category">
+                <option value="electronics">Electronics</option>
+                <option value="food & drink">Food & Drink</option>
+                <option value="fruit & veggie">Fruit & Veggie</option>
+                <option value="digital entertainment">Digital Entertainment</option>
+                <option value="clothes">Clothes</option>
+            </select>
+            </div>
+
+            <div style="margin-bottom: 40px;">
+            <div class="mb-3">
+                <label class="form-label" for="quantity">Product Quantity</label>
+                <input class="form-control" type="text" id="quantity" name="product[quantity]" required>
+            </div>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-success">Add Product</button>
+            </div>
+            
+        </form>
+
+        <a href="/electronics">
+            <button class="btn btn-danger">Cancel</button>
+        </a>
+
+    </div>
+</div>
+

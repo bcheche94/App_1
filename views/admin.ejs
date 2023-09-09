@@ -1,0 +1,67 @@
+<style>
+
+    #my_button_1:hover {
+        background-color: cadetblue !important;
+    }
+
+</style>
+
+<div style="display: inline-block;">
+
+<h1 style="margin-top: 25px; margin-left: 50px; font-family: Arial">Admin Page</h1>
+
+<form action="/admin" method="post">
+    <button id="my_button_1" style="margin-left: 50px; width: 150px; height: 80px; 
+                                    border: 2px solid black; font-family: Arial; 
+                                    background-color: burlywood; font-size: 15px;">
+    
+    Clear All Assets (images)
+    
+    </button>
+</form>
+
+<% if (passed_through == 'nothing') { %>
+
+<% } else if (Object.keys(passed_through.deleted).length == 0) { %>
+
+<h2 style="margin-left: 50px;"> Cannot Delete, Resources Already Cleared! </h2>
+
+<a style="display: flex; align-items: center; justify-content: center; 
+          width: 100px; height: 50px; border: 2px solid black; text-decoration: none;
+          margin-left: 50px; background-color: darkseagreen; color: black;" href="/admin">OK</a>
+
+<% } else { %>
+
+<h2> Images </h2>
+
+<% for (let item of Object.keys(passed_through.deleted)) {  %>
+    
+<p> <%= item %> </p>
+    
+<% } %>
+    
+<h2> Have Been Deleted! </h2>
+
+<a style="display: flex; align-items: center; justify-content: center; 
+          width: 100px; height: 50px; border: 2px solid black; text-decoration: none;
+          margin-left: 50px; background-color: darkseagreen; color: black;" href="/admin">OK</a>
+
+<% } %>
+
+</div>
+
+<div style="display: inline-block; margin-left: 200px;">
+    <div style="display: flex; flex-direction: column;">
+        <h1>Number of products</h1>
+        <h1>Number of users</h1>
+        <h1>Number of reviews</h1>
+    </div>
+</div>
+
+<div style="display: inline-block; margin-left: 100px;">
+    <div style="display: flex; flex-direction: column;">
+        <h1><%= asd6 %></h1>
+        <h1><%= userCount %></h1>
+        <h1><%= reviewCount %></h1>
+    </div>
+</div>

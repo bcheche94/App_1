@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<h1 class="mb-4"> REGISTER AS A VENDOR! </h1>
+
+<form action="/register" method="POST" class="validated-form" novalidate>
+
+    <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password" required>
+    </div>
+
+    <h2 class="mb-5 mt-5">You may register as a vendor on Zorgon Ecommerce, the startup fee is $250</h2>
+    <h2 class="mb-5 mt-5">NOTE: You may enter fictitious payment info here, this website is a demo project, anything you enter is irrelevant</h2>
+    
+
+    <div class="mb-3">
+        <label class="form-label" for="creditcard">Credit Card</label>
+        <input class="form-control" minlength="16" maxlength="16" type="text" id="creditcard" name="creditcard" required>
+    </div>
+
+    <div class="mb-3" style="max-width: 200px;">
+        <label class="form-label" for="expiration">Expiration</label>
+        <input class="form-control" minlength="4" maxlength="4" type="text" id="expiration" name="expiration" required>
+    </div>
+
+    <div class="mb-3" style="max-width: 200px;">
+        <label class="form-label" for="cvc">CVC</label>
+        <input class="form-control" minlength="3" maxlength="3" type="text" id="cvc" name="cvc" required>
+    </div>
+
+    <div style="margin-top: 50px; margin-bottom: 50px;"></div>
+
+    <button class="btn btn-success" > REGISTER </button>
+
+    <div style="margin-top: 100px; margin-bottom: 100px;"></div>
+
+</form>

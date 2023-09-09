@@ -1,0 +1,58 @@
+<% layout('layouts/boilerplate') %>
+
+<h1>Digital Entertainment</h1>
+
+<% for (let thing of item_of_interest) { %>
+    <div class="card" mb-3>
+        <div class="row">
+            <div class="col-md-4">
+                
+                <% if(thing.images.length == 1) { %>
+
+                    <% for (let img of thing.images) { %>
+                    
+                    <img crossorigin="anonymous" src="<%= img.url %>" alt="" class="img-fluid">
+                    
+                    <% } %>
+                    
+                    <% } else { %>
+                    
+                    <% for (let img of thing.images) { %>
+                    
+                    <% if(img == thing.images[0] || img == thing.images[1]) { %>
+
+                    <img style="width: fit-content; height: fit-content" crossorigin="anonymous" src="<%= img.url %>" alt="" class="img-fluid">
+                    
+                    <% } %>
+                    
+                    <% } %>
+                    
+                <% } %>
+                
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"> <%= thing.title %> </h5>
+                    <p class="card-text"> <%= thing.description %> </p>
+                    <p class="card-text">
+                        <small class="text-muted"> Producer: <%= thing.producer %> </small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted"> Price: $<%= thing.price %> </small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted"> Category: <%= thing.category %> </small>
+                    </p>
+                    <a href="/products/<%= thing._id %>" class="btn btn-primary">
+                        View <%= thing.title %> 
+                    </a>
+                    <a href="/products/<%= thing._id %>/purchase" class="btn btn-success">
+                        Purchase
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
+
+<div class="mt-5 mb-5"></div>
